@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { home } from "./pages/home/index.jsx";
-import { about } from "./pages/about/about.jsx";
+// import { home } from "./pages/home/index.jsx";
+// import { about } from "./pages/about/about.jsx";
 
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
@@ -12,10 +12,10 @@ function App() {
 
   return (
     <>
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={home} />
         <Route path="/about" element={about} />
-      </Routes>
+      </Routes> */}
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
