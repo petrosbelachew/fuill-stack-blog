@@ -1,69 +1,113 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+import type {
+  Blog,
+  Writer,
+  NewBlog,
+  UpdateBlog,
+  NewWriter,
+  UpdateWriter,
+  Credentials,
+  AuthResponse,
+} from "../api/types.ts"; // Assuming types.ts is in the same directory
+// Define the API slice
 const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api" }),
   endpoints: (builder) => ({
-    fetchBlogs: builder.query({
+    // --- BLOG ENDPOINTS ---
+
+    // Response: Blog[], Argument: void
+    fetchBlogs: builder.query<Blog[], void>({
       query: () => "blog",
     }),
-    fetchBlogById: builder.query({
+
+    // Response: Blog, Argument: number (Blog ID)
+    fetchBlogById: builder.query<Blog, number>({
       query: (id) => `blog/${id}`,
     }),
-    createBlog: builder.mutation({
+
+    // Response: Blog, Argument: NewBlog (data to create)
+    createBlog: builder.mutation<Blog, NewBlog>({
       query: (newBlog) => ({
         url: "blog",
         method: "POST",
         body: newBlog,
       }),
     }),
-    updateBlog: builder.mutation({
-      query: ({ id, ...update }) => ({
+
+    // Response: Blog, Argument: { id: number, ...update }
+    updateBlog: builder.mutation<Blog, { id: number; update: UpdateBlog }>({
+      query: ({ id, update }) => ({
+        // Note: Destructuring is clearer here
         url: `blog/${id}`,
         method: "PUT",
         body: update,
       }),
     }),
-    deleteBlog: builder.mutation({
+
+    // Response: { success: boolean }, Argument: number (ID)
+    deleteBlog: builder.mutation<{ success: boolean }, number>({
       query: (id) => ({
         url: `blog/${id}`,
         method: "DELETE",
       }),
     }),
-    fetchWriters: builder.query({
+
+    // --- WRITER ENDPOINTS ---
+
+    // Response: Writer[], Argument: void
+    fetchWriters: builder.query<Writer[], void>({
       query: () => "writers",
     }),
-    fetchWriterById: builder.query({
+
+    // Response: Writer, Argument: number (Writer ID)
+    fetchWriterById: builder.query<Writer, number>({
       query: (id) => `writers/${id}`,
     }),
-    createWriter: builder.mutation({
+
+    // Response: Writer, Argument: NewWriter
+    createWriter: builder.mutation<Writer, NewWriter>({
       query: (newWriter) => ({
         url: "writers",
         method: "POST",
         body: newWriter,
       }),
     }),
-    updateWriter: builder.mutation({
-      query: ({ id, ...update }) => ({
+
+    // Response: Writer, Argument: { id: number, ...update }
+    updateWriter: builder.mutation<
+      Writer,
+      { id: number; update: UpdateWriter }
+    >({
+      query: ({ id, update }) => ({
         url: `writers/${id}`,
         method: "PUT",
         body: update,
       }),
     }),
-    deleteWriter: builder.mutation({
+
+    // Response: { success: boolean }, Argument: number (ID)
+    deleteWriter: builder.mutation<{ success: boolean }, number>({
       query: (id) => ({
         url: `writers/${id}`,
         method: "DELETE",
       }),
     }),
-    login: builder.mutation({
+
+    // --- AUTH ENDPOINTS ---
+
+    // Response: AuthResponse, Argument: Credentials
+    login: builder.mutation<AuthResponse, Credentials>({
       query: (credentials) => ({
         url: "auth/login",
         method: "POST",
         body: credentials,
       }),
     }),
-    register: builder.mutation({
+
+    // Response: AuthResponse, Argument: NewWriter (as NewUser)
+    register: builder.mutation<AuthResponse, NewWriter>({
       query: (newUser) => ({
         url: "auth/register",
         method: "POST",

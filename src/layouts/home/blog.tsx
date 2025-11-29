@@ -1,19 +1,20 @@
 import React from "react";
 import { useFetchBlogsQuery } from "../../api/api.ts";
+// import type { Blog } from "../../api/types.ts";
 
-const BlogList = () => {
-  const { data: blogs, error, isLoading } = useFetchBlogsQuery();
+const PostsList: React.FC = () => {
+  const { data: posts, error, isLoading } = useFetchBlogsQuery();
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error fetching blogs: {error.message}</div>;
+  if (error) return <div>Error fetching posts</div>;
 
   return (
-    <div>
-      {blogs.map((blog) => (
-        <div key={blog.id}>{blog.title}</div>
+    <ul>
+      {posts?.map((post) => (
+        <li key={post.id}>{post.title}</li>
       ))}
-    </div>
+    </ul>
   );
 };
 
-export default BlogList;
+export default PostsList;
