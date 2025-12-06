@@ -1,8 +1,10 @@
 // Define the core types for Blog and Writer
 export interface Blog {
-  id: number;
+  id: string;
   title: string;
+  description: string;
   content: string;
+
   writerId: number; // Foreign key linking to Writer
 }
 

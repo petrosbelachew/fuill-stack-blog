@@ -1,5 +1,0 @@
-return (
-  <>
-    <h1>about test</h1>
-  </>
-);

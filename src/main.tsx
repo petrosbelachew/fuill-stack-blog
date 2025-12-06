@@ -1,17 +1,14 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { ApiProvider } from "@reduxjs/toolkit/query/react";
-// import { BrowserRouter } from "react-router-dom";
-import api from "./api/api.ts";
-import "./index.css";
-// import App from "./App.tsx";
-import BlogList from "./layouts/home/blog.tsx";
+// main.tsx (Example)
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux"; // From 'react-redux'
+import App from "./App";
+import store from "./api/store";
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <ApiProvider api={api}>
-      <BlogList />
-      {/* <App /> */}
-    </ApiProvider>
-  </StrictMode>
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
 );

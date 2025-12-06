@@ -1,6 +1,0 @@
-
-return(
-    <>
-    <h1>home test</h1>
-    </>
-)

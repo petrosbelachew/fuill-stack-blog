@@ -1,20 +1,35 @@
 import React from "react";
-import { useFetchBlogsQuery } from "../../api/api.ts";
-// import type { Blog } from "../../api/types.ts";
+import { Link } from "react-router-dom";
+import { useFetchBlogsQuery } from "../../api/api";
+import type { Blog } from "../../api/types";
 
-const PostsList: React.FC = () => {
+const BlogList: React.FC = () => {
   const { data: posts, error, isLoading } = useFetchBlogsQuery();
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error fetching posts</div>;
+  if (isLoading) return <div>Loading blog list...</div>;
+  if (error) return <div>Error fetching posts list.</div>;
+  if (!posts || posts.length === 0) return <div>No posts available.</div>;
 
   return (
-    <ul>
-      {posts?.map((post) => (
-        <li key={post.id}>{post.title}</li>
-      ))}
-    </ul>
+    <div className="posts-list-container">
+      <h2>📰 Blog Post Titles</h2>
+      <ul>
+        {posts.map((post: Blog) => (
+          <li key={post.id}>
+            <Link
+              to={`/blog/${post.id}`}
+              style={{ color: "blue", textDecoration: "underline" }}
+            >
+              {post.title}
+            </Link>
+            <p style={{ fontSize: "0.8em", color: "#666" }}>
+              Writer ID: {post.writerId}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
-export default PostsList;
+export default BlogList;
