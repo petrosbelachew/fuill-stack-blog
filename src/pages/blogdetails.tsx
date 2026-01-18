@@ -50,12 +50,14 @@ const BlogDetail: React.FC = () => {
     );
 
   return (
-    <div className="Blog-detail-container">
-      <button onClick={() => navigate("/")}>← Back to all posts</button>
+    <div className="wrapper">
+      <div className="Blog-detail-container">
+        <button onClick={() => navigate("/")}>← Back to all posts</button>
 
-      <h1>{(currentBlog as Blog).title}</h1>
-      <p style={{ fontStyle: "italic", color: "#666" }}>Blog ID: {blogId}</p>
-      <p>{(currentBlog as Blog).content}</p>
+        <h1>{(currentBlog as Blog).title}</h1>
+        <p style={{ fontStyle: "italic", color: "#666" }}>Blog ID: {blogId}</p>
+        <p>{(currentBlog as Blog).content}</p>
+      </div>
     </div>
   );
 };
