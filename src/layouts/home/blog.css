@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.posts-list-container {
+  width: 1200px;
+  margin: 50px 50px;
+}
+.posts-list-container ul {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 20px auto;
+  list-style: none;
+}
+
+link {
+  color: "blue";
+  text-decoration: none;
+}

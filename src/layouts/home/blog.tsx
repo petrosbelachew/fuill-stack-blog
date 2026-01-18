@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useFetchBlogsQuery } from "../../api/api";
 import type { Blog } from "../../api/types";
+import "./blog.css";
 
 const BlogList: React.FC = () => {
   const { data: posts, error, isLoading } = useFetchBlogsQuery();
@@ -16,15 +17,7 @@ const BlogList: React.FC = () => {
       <ul>
         {posts.map((post: Blog) => (
           <li key={post.id}>
-            <Link
-              to={`/blog/${post.id}`}
-              style={{ color: "blue", textDecoration: "underline" }}
-            >
-              {post.title}
-            </Link>
-            <p style={{ fontSize: "0.8em", color: "#666" }}>
-              Writer ID: {post.writerId}
-            </p>
+            <Link to={`/blog/${post.id}`}>{post.title}</Link>
           </li>
         ))}
       </ul>

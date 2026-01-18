@@ -1,8 +1,9 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useFetchBlogByIdQuery } from "../api/api";
+import { useFetchBlogByIdQuery, useFetchWriterByIdQuery } from "../api/api";
 
 import type { Blog } from "../api/types";
+import "./blogdetails.css";
 
 const BlogDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,18 +17,21 @@ const BlogDetail: React.FC = () => {
   const navigate = useNavigate();
 
   const {
-    data: blog,
+    data: currentBlog,
     error,
     isLoading,
   } = useFetchBlogByIdQuery(blogId as any, { skip });
 
+  // Determine the writer ID to trigger the second fetch
+  const writerId = currentBlog?.writerId;
+  console.log("Fetched Writer ID from Blog:", writerId);
   if (skip) {
     return (
       <div className="error-container">
         <h3>Invalid Blog Identifier</h3>
         <p>
-          The URL is missing the blog identifier. Please go back and select a
-          post.
+          The URL is missing the currentBlog identifier. Please go back and
+          select a post.
         </p>
         <button onClick={() => navigate("/")}>← Return to List</button>
       </div>
@@ -35,7 +39,7 @@ const BlogDetail: React.FC = () => {
   }
 
   if (isLoading) return <h3>Loading post with ID: {blogId}...</h3>;
-  if (error || !blog)
+  if (error || !currentBlog)
     return (
       <div className="error-container">
         <h3>Could not load post.</h3>
@@ -46,16 +50,12 @@ const BlogDetail: React.FC = () => {
     );
 
   return (
-    <div className="blog-detail-container">
-      <button onClick={() => navigate("/")} style={{ marginBottom: 20 }}>
-        ← Back to all posts
-      </button>
+    <div className="Blog-detail-container">
+      <button onClick={() => navigate("/")}>← Back to all posts</button>
 
-      <h1>{(blog as Blog).title}</h1>
+      <h1>{(currentBlog as Blog).title}</h1>
       <p style={{ fontStyle: "italic", color: "#666" }}>Blog ID: {blogId}</p>
-      <p style={{ marginTop: 30, padding: 15, border: "1px solid #eee" }}>
-        {(blog as Blog).content}
-      </p>
+      <p>{(currentBlog as Blog).content}</p>
     </div>
   );
 };

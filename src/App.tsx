@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import PostsList from "./layouts/home/blog";
 import BlogDetail from "./pages/blogdetails";
+
 const App: React.FC = () => {
   return (
     <Router>
